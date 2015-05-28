@@ -48,7 +48,14 @@ int insertar(struct Coche coche, struct Coche taller[]) {
 		return 1;
 }
 
-
+int borrar(struct Coche taller[], char matricula[]) {
+	if (buscar(taller, matricula) == -1) {
+		return 1;
+	} else{
+		taller[buscar(taller, matricula)] == NULL;
+		return 0;
+	}
+}
 
 int main(void) {
 	setbuf(stdout, NULL);
