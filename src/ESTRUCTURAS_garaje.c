@@ -42,18 +42,23 @@ void ordenar(struct Coche taller[]) {
 int insertar(struct Coche coche, struct Coche taller[]) {
 	if (buscar(taller, coche.matricula) != -1) {
 		return 2;
-	} else if (buscar(taller, NULL) != -1) {
-		taller[bucar(taller, NULL)] = coche;
-		return 0;
-	} else
-		return 1;
+	} else {
+		int i = buscar(taller, NULL);
+		if (i != -1) {
+			taller[i] = coche;
+			return 0;
+		}
+	}
+	return 1;
+
 }
 
 int borrar(struct Coche taller[], char matricula[]) {
-	if (buscar(taller, matricula) == -1) {
+	int i = buscar(taller, matricula);
+	if (i == -1) {
 		return 1;
 	} else {
-		taller[buscar(taller, matricula)] == NULL;
+		taller[i] == NULL;
 		return 0;
 	}
 }
