@@ -18,8 +18,9 @@ int size(struct Coche taller[]) {
 int buscar(struct Coche taller[], char matricula[]) {
 	int i = 0;
 	do {
-		if (strcasecmp(matricula, taller[i].matricula) == 0)
+		if (strcasecmp(matricula, taller[i].matricula) == 0) {
 			return i;
+		}
 	} while (++i < size(taller));
 	return -1;
 }
@@ -51,7 +52,7 @@ int insertar(struct Coche coche, struct Coche taller[]) {
 int borrar(struct Coche taller[], char matricula[]) {
 	if (buscar(taller, matricula) == -1) {
 		return 1;
-	} else{
+	} else {
 		taller[buscar(taller, matricula)] == NULL;
 		return 0;
 	}
