@@ -2,7 +2,7 @@
  ============================================================================
  Name        : ESTRUCTURAS_garaje.c
  Author      : Serulvan
- Version     : 0.2
+ Version     : 1.0
  Copyright   : psa
  Description : trabajo con estructuras
  ============================================================================
@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+static int tam;
 
 struct Coche {
     char matricula[8];
@@ -29,15 +31,16 @@ int buscar(struct Coche taller[], char matricula[]) {
         if (strcasecmp(matricula, taller[i].matricula) == 0) {
             return i;
         }
-    } while (++i < size(taller));
+    } while (++i < tam);
     return -1;
 }
+
 void ordenar(struct Coche taller[]) {
     struct Coche aux;
     int i, j;
-    for (i = 0; i < size(taller) - 1; ++i) {
-        for (j = 1; j < size(taller); ++j) {
-            if (strcasecmp(taller[i].matricula, taller[j].matricula) == 1) {
+    for (i = 0; i < tam - 1; ++i) {
+        for (j = i-1; j < tam; ++j) {
+            if (strcasecmp(taller[i].matricula, taller[j].matricula) > 0) {
                 aux = taller[i];
                 taller[i] = taller[j];
                 taller[j] = aux;
@@ -76,39 +79,83 @@ void imprimir(struct Coche taller[], char matricula[]) {
         printf("la matricula es \t%s\n", taller[i].matricula);
         printf("la marca es     \t%s\n", taller[i].marca);
         printf("el modelo es    \t%s\n", taller[i].modelo);
-        printf("los caballos son \t%d\n\n", taller[i].cv);
+        printf("los caballos son \t%d\n", taller[i].cv);
     } else {
-        printf("coche no encontrado\n\n");
+        printf("coche no encontrado\n");
     }
 }
 
 int main(void) {
     setbuf(stdout, NULL);
-    struct Coche taller[10];
+    tam = 10;
+    struct Coche taller[tam];
     int i;
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < tam; i++) {
         strcpy(taller[i].matricula, " ");
     }
-
-    struct Coche aux;
-    strcpy(aux.matricula, "SVG666");
-    strcpy(aux.marca, "renaült");
-    strcpy(aux.modelo, "5 Maxi TURBO");
-    aux.cv = 100;
-
-    switch (insertar(aux, taller)) {
-        case 0:
-            printf("ok\n");
-            break;
-        case 2:
-            printf("ya existe\n");
-            break;
-        default:
-            printf("no se que has tocao, pero la has cagao\n");
+    printf("bienvenido al taller, ¿que quieres hacer?\n");
+    int n = -1;
+    struct Coche cAInsertar;
+    char mat[8];
+    while (n != 5) {
+        printf("1: introducir nuevo vehículo\n"
+                "2: Borrar un vehiculo\n"
+                "3: ordenar los vehículos\n"
+                "4: Mostrar los datos de un vehículo\n"
+                "5: Salir\n\n");
+        scanf("%d", &n);
+        switch (n) {
+            case 1:
+                scanf("introduce la matricula: %s\n", &cAInsertar.matricula);
+                scanf("introduce la marca: %s\n", &cAInsertar.marca);
+                scanf("introduce el modelo: %s\n", &cAInsertar.modelo);
+                scanf("introduce los cv: %d\n", &cAInsertar.cv);
+                switch (insertar(cAInsertar, taller)) {
+                    case 0:
+                        printf("insertado correctamente");
+                        break;
+                    case 1:
+                        printf("no hay sitio en el taller");
+                        break;
+                    case 2:
+                        printf("la matricula ya existe");
+                        break;
+                    default:
+                        printf("esto no tendria que mostrarse");
+                }
+                break;
+            case 2:
+                scanf("introduce la matricula: %s\n", &mat);
+                switch (borrar(taller, mat)){
+                    case 0:
+                        printf("borrado correctamente");
+                        break;
+                    case 1:
+                        printf("no encontrado");
+                        break;
+                    case 2:
+                        printf("esto no tendria que mostrarse");
+                        break;
+                    default:
+                        printf("esto no tendria que mostrarse");
+                }
+                break;
+            case 3:
+                scanf("Introduce la matricula: %s\n", &mat);
+                imprimir(taller, mat);
+                break;
+            case 4:
+                ordenar(taller);
+                printf("Echo.");
+                break;
+            case 5:
+                printf("Adios.");
+                break;
+            default:
+                printf("por favor, elije:\n");
+        }
     }
 
-    printf("%s\n", taller[0].matricula);
-    imprimir(taller, "svg666");
-    printf("%d\n", size(taller));
+
     return EXIT_SUCCESS;
 }
