@@ -83,7 +83,7 @@ int borrar(struct Coche taller[], char matricula[]) {
 void imprimir(struct Coche taller[], char matricula[]) {
     int i = buscar(taller, matricula);
     if (i != -1) {
-        printf("la matricula es \t%s\n", taller[i].matricula);
+        printf("la matrícula es \t%s\n", taller[i].matricula);
         printf("la marca es     \t%s\n", taller[i].marca);
         printf("el modelo es    \t%s\n", taller[i].modelo);
         printf("los caballos son \t%d\n", taller[i].cv);
@@ -113,7 +113,7 @@ int main(void) {
     char mat[8];
     while (n != 5) {
         printf("\n1: introducir nuevo vehículo\n"
-                "2: Borrar un vehiculo\n"
+                "2: Borrar un vehículo\n"
                 "3: Mostrar los datos de un vehículo\n"
                 "4: ordenar los vehículos\n"
                 "5: Salir\n\n");
@@ -121,7 +121,7 @@ int main(void) {
         scanf("%d", &n);
         switch (n) {
             case 1:
-            	printf("introduce la matricula:\n");
+            	printf("introduce la matrícula:\n");
                 scanf("%s", cAInsertar.matricula);
                 printf("introduce la marca:\n");
                 scanf("%s", cAInsertar.marca);
@@ -141,11 +141,11 @@ int main(void) {
                         printf("la matricula ya existe\n");
                         break;
                     default:
-                        printf("esto no tendria que mostrarse\n");
+                        printf("esto no tendría que mostrarse\n");
                 }
                 break;
             case 2:
-                printf("introduce la matricula: \n");
+                printf("introduce la matrícula: \n");
                 scanf("%s", &mat);
                 switch (borrar(taller, mat)){
                     case 0:
@@ -155,14 +155,14 @@ int main(void) {
                         printf("no encontrado\n");
                         break;
                     case 2:
-                        printf("esto no tendria que mostrarse\n");
+                        printf("esto no tendría que mostrarse\n");
                         break;
                     default:
-                        printf("esto no tendria que mostrarse\n");
+                        printf("esto no tendría que mostrarse\n");
                 }
                 break;
             case 3:
-                printf("introduce la matricula: \n");
+                printf("introduce la matrícula: \n");
                 scanf("%s", &mat);
                 imprimir(taller, mat);
                 break;
@@ -174,7 +174,7 @@ int main(void) {
                 printf("Adios.\n");
                 break;
             default:
-                printf("por favor, elije:\n");
+                printf("Por favor, elige:\n");
         }
     }
 
